@@ -151,8 +151,4 @@ class Validator:
                     return False
                 else:
                     return True
-            # else:
-            #     self.er_flag = True
-            #     # self.error = f'{key} is not correct name for Category_pill table'
-            #     print(self.error)
-            #     return False
+
