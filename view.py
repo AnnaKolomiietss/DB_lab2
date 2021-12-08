@@ -89,7 +89,7 @@ class View:
             while True:
                 search_type = input('specify the type of data you want to search for '
                                     '(numeric or string): ')
-                if search_type == 'numeric' or search_type == 'string' or search_type == 'date':
+                if search_type == 'numeric' or search_type == 'string':
                     break
             key = input('specify the name of key by which you`d like to perform search '
                         'in form: table_number.key_name: ')
@@ -101,16 +101,6 @@ class View:
                     search = self.numeric_search(a, b, key)
                 else:
                     search += ' and ' + self.numeric_search(a, b, key)
-
-            elif search_type == 'date':
-                data = input('specify the left end of search interval '
-                             'in form: year.month.day.hour.minute.second: ')
-                datb = input('specify the right end of search interval '
-                             'in form: year.month.day.hour.minute.second: ')
-                if search == '':
-                    search = self.date_search(data, datb, key)
-                else:
-                    search += ' and ' + self.date_search(data, datb, key)
 
             elif search_type == 'string':
                 string = input('specify the string you`d like to search for: ')
@@ -127,17 +117,6 @@ class View:
             self.invalid_interval()
         else:
             return f"{a}<{key} and {key}<{b}"
-
-    def date_search(self, a: str, b: str, key: str):
-        try:
-            arr = [int(x) for x in a.split(sep='.')]
-            brr = [int(x) for x in b.split(sep='.')]
-        except Exception:
-            print(Exception)
-            self.invalid_interval()
-        else:
-            return f"{key} BETWEEN \'{datetime.datetime(arr[0], arr[1], arr[2], arr[3], arr[4], arr[5])}\' " \
-                   f"AND \'{datetime.datetime(brr[0], brr[1], brr[2], brr[3], brr[4], brr[5])}\'"
 
     def string_search(self, string: str, key: str):
         return f"{key} LIKE \'{string}\'"
